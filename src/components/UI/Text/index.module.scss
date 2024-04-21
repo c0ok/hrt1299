@@ -1,0 +1,19 @@
+.text {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+
+  &--blue {
+    color: var(--blue-4);
+    font-size: 24px;
+    letter-spacing: 0.24px;
+  }
+
+  &--white {
+    color: #E2E2E2;
+    font-size: 20px;
+    line-height: 116.182%; /* 23.236px */
+    letter-spacing: 0.1px;
+  }
+}
