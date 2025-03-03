@@ -35,11 +35,11 @@ export const Tool = () => {
     // prepare text
     inputText.current = inputText.current.replaceAll(new RegExp(`${cName}:`, 'gi'), `${cName.toUpperCase()}:`);
     textField0.current.value = inputText.current;
-    console.log(cName);
 
-    const regexp = new RegExp(`${cName}:.*\n.+\n`, 'g');
+    const regexp = new RegExp(`${cName}:.*\n((.*)\n)?.+\n`, 'g');
     const result = (`${inputText.current}\n`).replace(regexp, (text) => {
       let firstPart = '';
+      let secondPart = '';
 
       const regexp = new RegExp(`${cName}:.*\n`);
       text.replace(regexp, (text) => {
@@ -47,11 +47,19 @@ export const Tool = () => {
         return text;
       });
 
-      // eslint-disable-next-line max-len
-      const secondPart = `<span style='background-color: rgb(255, 255, 0); color: #000'>${text.slice(firstPart.length)}</span>`;
+      text.replace(/\(.*\)\n/, (text) => {
+        secondPart = text;
+        return text;
+      });
 
-      return firstPart + secondPart;
-    }).replaceAll('\n', '<br>');
+      // eslint-disable-next-line max-len
+      const thirdPart = `<span style='background-color: rgb(255, 255, 0); color: #000'>${text.slice(
+        firstPart.length + secondPart.length
+      )}</span>`;
+
+      return firstPart + secondPart + thirdPart;
+    })
+      .replaceAll('\n', '<br>');
 
     // eslint-disable-next-line max-len
     textField1.current.innerHTML = `<span style="font-family: 'Courier New', Courier, monospace; font-size: 16px; line-height: 17px">${result}</span>`;
